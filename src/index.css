@@ -19,3 +19,91 @@ body {
 button {
   font-family: inherit;
 }
+
+:root {
+  --color-primary: #ffefc6ff;
+  --color-secondary: #FFE39C;
+  --color-accent: #DCA992;
+  --color-bg: #e4e4ea;
+  --color-text-primary: #10183F;
+  --color-border: #ffefc6ff;
+  
+  --font-body: 'Libre Baskerville', serif;
+  --font-size-body: 18px;
+  
+  --radius-full: 50px;
+  --border-thin: 0.25px solid #ffefc6ff;
+  --shadow-md: 0px 0px 8px #DCA992;
+  --shadow-lg: 0px 0px 8px #FFE39C;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  line-height: 1.6;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-style: normal;
+  color: var(--color-text-primary);
+}
+
+/* Base Pill Button */
+button.btn-primary {
+  background-color: var(--color-secondary);
+  color: var(--color-text-primary);
+  border: var(--border-thin);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Pill Form Inputs */
+input.theme-input {
+  height: 58px;
+  width: 100%;
+  border-radius: var(--radius-full);
+  border: var(--border-thin);
+  box-shadow: var(--shadow-md);
+  padding: 0 1.5rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  background: #ffffff;
+  outline: none;
+}
+
+input.theme-input:focus {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Rounded Cards */
+.theme-card {
+  border-radius: var(--radius-full);
+  border: var(--border-thin);
+  box-shadow: var(--shadow-md);
+  background: #ffffff;
+  padding: 2rem;
+}

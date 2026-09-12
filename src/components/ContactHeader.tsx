@@ -2,30 +2,34 @@ import React from 'react';
 
 export const ContactHeader: React.FC = () => {
   return (
-    /* STYLING HOOK: Fixed banner/bar pinned to screen or page end */
     <header
       style={{
         position: 'fixed',
         bottom: 0,
         left: 0,
         width: '100%',
-        backgroundColor: '#111',
-        color: '#fff',
-        padding: '0.75rem 1.5rem',
+        backgroundColor: 'var(--color-primary)',
+        borderTop: 'var(--border-thin)',
+        color: 'var(--color-text-primary)',
+        padding: '0.75rem 2rem',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         zIndex: 100,
+        fontSize: '0.9rem',
       }}
-      aria-label="Contact information"
     >
       <div>
-        {/* STYLING HOOK: Contact label */}
-        <span style={{ fontWeight: 600 }}>Get in touch: </span>
-        {/* STYLING HOOK: Contact links */}
+        <span>Get in touch: </span>
         <a
           href="mailto:contact@reminisce.app"
-          style={{ color: '#fff', textDecoration: 'underline', marginRight: '1rem' }}
+          style={{
+            color: 'var(--color-text-primary)',
+            fontWeight: 700,
+            marginLeft: '0.5rem',
+            textDecoration: 'none',
+            borderBottom: '1px solid var(--color-accent)',
+          }}
         >
           contact@reminisce.app
         </a>
