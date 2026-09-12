@@ -39,12 +39,13 @@
  */
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import type { CSSProperties } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import * as turf from "@turf/turf";
 import type { Feature, LineString } from "geojson";
 import { Play, Pause, RotateCcw, Repeat } from "lucide-react";
-import type { Trip, Waypoint } from "../utils/types";
+import type { Trip, Waypoint } from "./types";
 
 interface RetraceMapProps {
   trip: Trip;
@@ -326,17 +327,16 @@ export default function RetraceMap({
       markersRef.current = trip.waypoints.map((wp) => {
         const el = document.createElement("div");
         el.innerHTML = `
-          <div class="retrace-marker-inner flex flex-col items-center"
-               style="transform-origin:50% 100%; transform:scale(0.001); transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1);">
-            <div class="rounded-xl border border-white/30 shadow-lg overflow-hidden" style="width:64px;height:64px;background:#170A28">
+          <div class="retrace-marker-inner"
+               style="transform-origin:50% 100%; transform:scale(0.001); transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1); display:flex; flex-direction:column; align-items:center;">
+            <div style="width:64px;height:64px;background:#170A28;border-radius:0.75rem;border:1px solid rgba(255,255,255,0.3);box-shadow:0 10px 15px -3px rgba(0,0,0,0.35),0 4px 6px -4px rgba(0,0,0,0.35);overflow:hidden;">
               ${
                 wp.photos[0]
-                  ? `<img src="${wp.photos[0].src}" alt="${wp.name}" style="width:100%;height:100%;object-fit:cover" />`
+                  ? `<img src="${wp.photos[0].src}" alt="${wp.name}" style="width:100%;height:100%;object-fit:cover;display:block;" />`
                   : ""
               }
             </div>
-            <div class="mt-1 px-2 py-0.5 rounded-full text-[11px] font-medium whitespace-nowrap"
-                 style="background:#170A28cc;color:#F6EFE2;border:1px solid rgba(255,255,255,0.15)">
+            <div style="margin-top:0.25rem;padding:0.125rem 0.5rem;border-radius:9999px;font-size:11px;font-weight:500;white-space:nowrap;background:#170A28cc;color:#F6EFE2;border:1px solid rgba(255,255,255,0.15);">
               ${wp.name}
             </div>
           </div>
@@ -502,6 +502,17 @@ export default function RetraceMap({
     setPlaying(true);
   };
 
+  const controlButtonStyle: CSSProperties = {
+    borderRadius: "9999px",
+    padding: "0.5rem",
+    border: "none",
+    cursor: "pointer",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    lineHeight: 0,
+  };
+
   return (
     <div
       className={className}
@@ -513,34 +524,50 @@ export default function RetraceMap({
       />
 
       {/* status + controls overlay */}
-      <div className="absolute top-4 left-4 right-16 flex items-center justify-between pointer-events-none">
+      <div
+        style={{
+          position: "absolute",
+          top: "1rem",
+          left: "1rem",
+          right: "4rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          pointerEvents: "none",
+        }}
+      >
         <div
-          className="px-3 py-1.5 rounded-full text-sm pointer-events-auto"
-          style={{ background: "#170A28cc", color: "#F6EFE2", border: "1px solid rgba(255,255,255,0.12)" }}
+          style={{
+            background: "#170A28cc",
+            color: "#F6EFE2",
+            border: "1px solid rgba(255,255,255,0.12)",
+            padding: "0.375rem 0.75rem",
+            borderRadius: "9999px",
+            fontSize: "0.875rem",
+            pointerEvents: "auto",
+          }}
         >
           {activeWaypoint ? (
             <>
-              <span className="font-semibold">{activeWaypoint.time}</span> at{" "}
+              <span style={{ fontWeight: 600 }}>{activeWaypoint.time}</span> at{" "}
               {activeWaypoint.name.toLowerCase()}
             </>
           ) : (
             "Setting off…"
           )}
         </div>
-        <div className="flex items-center gap-2 pointer-events-auto">
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", pointerEvents: "auto" }}>
           <button
             onClick={() => setPlaying((v) => !v)}
             aria-label={playing ? "Pause" : "Play"}
-            className="rounded-full p-2"
-            style={{ background: "#170A28cc", color: "#F6EFE2" }}
+            style={{ ...controlButtonStyle, background: "#170A28cc", color: "#F6EFE2" }}
           >
             {playing ? <Pause size={16} /> : <Play size={16} />}
           </button>
           <button
             onClick={restart}
             aria-label="Restart"
-            className="rounded-full p-2"
-            style={{ background: "#170A28cc", color: "#F6EFE2" }}
+            style={{ ...controlButtonStyle, background: "#170A28cc", color: "#F6EFE2" }}
           >
             <RotateCcw size={16} />
           </button>
@@ -549,8 +576,8 @@ export default function RetraceMap({
             aria-label={looping ? "Turn off looping" : "Turn on looping"}
             aria-pressed={looping}
             title={looping ? "Looping on" : "Looping off"}
-            className="rounded-full p-2"
             style={{
+              ...controlButtonStyle,
               background: looping ? "#FFC94D" : "#170A28cc",
               color: looping ? "#170A28" : "#F6EFE2",
             }}

@@ -22,21 +22,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onJoinClick }) => {
       {/* Feature showcase / how it works block */}
       <HowItWorksSection />
 
-      {/* STYLING HOOK: full-bleed map section — breaks out of the 900px
-          content column to span the actual viewport width, then returns
-          to normal document flow for everything after it. */}
-      <div
-        style={{
-          width: '100vw',
-          position: 'relative',
-          left: '50%',
-          right: '50%',
-          marginLeft: '-50vw',
-          marginRight: '-50vw',
-        }}
-      >
-        <RetraceMap trip={sampleTrip} mapboxToken={"pk.eyJ1Ijoic2lyc2t5ZSIsImEiOiJjbXR5cW9hNjkwY3dvMnhwendiczI0bGh1In0.sJVvuz1b3-AWriA6LFT2vQ"} />
-      </div>
+      <RetraceMap trip={sampleTrip} mapboxToken={"pk.eyJ1Ijoic2lyc2t5ZSIsImEiOiJjbXR5cW9hNjkwY3dvMnhwendiczI0bGh1In0.sJVvuz1b3-AWriA6LFT2vQ"} />
 
       {/* STYLING HOOK: Bottom CTA section */}
       <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
