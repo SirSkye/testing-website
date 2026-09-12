@@ -1,5 +1,7 @@
 import React from 'react';
 import { HowItWorksSection } from '../components/HowItWorksSection';
+import RetraceMap from '../components/RetraceMap';
+import { sampleTrip } from '../utils/sampleTrip';
 
 interface FeaturesPageProps {
   onJoinClick: () => void;
@@ -19,6 +21,8 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onJoinClick }) => {
 
       {/* Feature showcase / how it works block */}
       <HowItWorksSection />
+
+      <RetraceMap trip={sampleTrip} mapboxToken={"pk.eyJ1Ijoic2lyc2t5ZSIsImEiOiJjbXR5cW9hNjkwY3dvMnhwendiczI0bGh1In0.sJVvuz1b3-AWriA6LFT2vQ"} />
 
       {/* STYLING HOOK: Bottom CTA section */}
       <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
